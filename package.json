@@ -1,0 +1,38 @@
+{
+  "name": "jstobplusplus",
+  "version": "1.0.0",
+  "description": "its js to b ++",
+  "private": true,
+  "scripts": {
+    "test": "jest",
+    "watch": "webpack serve --mode development",
+    "lint": "eslint . --ext .ts",
+    "build": "jest; webpack --mode production"
+  },
+  "author": "Zelo101",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/esprima": "^4.0.2",
+    "@types/jest": "^26.0.20",
+    "@typescript-eslint/eslint-plugin": "^4.15.1",
+    "@typescript-eslint/parser": "^4.15.1",
+    "eslint": "^7.20.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.22.1",
+    "jest": "^26.6.3",
+    "ts-jest": "^26.5.2",
+    "ts-loader": "^8.0.17",
+    "typescript": "^4.1.5",
+    "webpack": "^5.23.0",
+    "webpack-cli": "^4.5.0",
+    "webpack-dev-server": "^3.11.2"
+  },
+  "dependencies": {
+    "@codemirror/basic-setup": "^0.17.1",
+    "@codemirror/commands": "^0.17.4",
+    "@codemirror/lang-javascript": "^0.17.2",
+    "@codemirror/state": "^0.17.2",
+    "@codemirror/view": "^0.17.10",
+    "esprima": "^4.0.1"
+  }
+}

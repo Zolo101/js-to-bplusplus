@@ -1,0 +1,32 @@
+body {
+    background-color: #a0c3d8;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0px 15%;
+}
+
+#spin {
+    color: #0077ff;
+}
+
+#ztext {
+    max-width: 100%;
+}
+
+.cm-content, .cm-gutter {
+    min-height: 300px;
+}
+
+.cm-gutters {
+    margin: 1px;
+}
+
+.cm-wrap {
+    border: 1px solid silver
+}
+
+.cm-scroller {
+    min-height: 305px;
+    max-height: 305px;
+    overflow: auto;
+    background-color: #e4e1e1;
+}
