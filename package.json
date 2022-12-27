@@ -11,15 +11,10 @@
     "lint": "eslint . --ext .ts"
   },
   "author": "Zelo101",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "@types/esprima": "^4.0.2",
     "@types/jest": "^26.0.20",
-    "@typescript-eslint/eslint-plugin": "^4.15.1",
-    "@typescript-eslint/parser": "^4.15.1",
-    "eslint": "^7.20.0",
-    "eslint-config-airbnb-base": "^14.2.1",
-    "eslint-plugin-import": "^2.22.1",
     "jest": "^26.6.3",
     "ts-jest": "^26.5.2",
     "ts-loader": "^8.0.17",
