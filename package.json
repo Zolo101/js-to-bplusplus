@@ -1,7 +1,7 @@
 {
-  "name": "jstobplusplus",
+  "name": "jstobstar",
   "version": "1.0.0",
-  "description": "its js to b ++",
+  "description": "its js to b*",
   "private": true,
   "scripts": {
     "test": "jest",
