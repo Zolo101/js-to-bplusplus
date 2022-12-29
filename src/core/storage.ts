@@ -1,6 +1,6 @@
-export function getCode(): string | null {
+export function getCode() {
     return localStorage.getItem("code")
 }
-export function setCode(code: string): void {
+export function setCode(code: string) {
     localStorage.setItem("code", code)
 }

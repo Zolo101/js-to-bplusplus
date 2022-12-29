@@ -24,4 +24,6 @@ export function startEditor(): void {
         runCode(val);
         setCode(val);
     })
+
+    runCode(editor.getValue());
 }

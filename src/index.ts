@@ -1,50 +1,47 @@
-import estree = require("estree");
-import { MathFunction } from "./core/functions";
-import { ERRORLIST, FUNCTIONS, VARIABLES } from "./core/global";
-import { parseJS } from "./core/parse";
-import { setCode } from "./core/storage";
-import { buildOps, resetOps, Statement } from "./core/types";
+import "../style.css";
+import * as estree from "estree";
+import { parse } from "acorn";
+import { startEditor } from "./editor/editor";
+import { interpretLine } from "./core/interpreter";
+import { buildOps, resetOps } from "./core/expression";
+import { ERRORLIST } from "./core/global";
 
 const outputtextarea = document.querySelector("#btext") as HTMLTextAreaElement;
 const buildTimeElem = document.querySelector("#buildtime") as HTMLSpanElement;
 console.log("Starting...")
 
 export function runCode(code: string): void {
-    const bTime = window.performance.now();
+    const t0 = window.performance.now();
     try {
         outputtextarea.style.color = "black";
         outputtextarea.innerHTML = mainFunc(code);
-    } catch (err) {
+    } catch (err: any) {
         outputtextarea.style.color = "red";
-        outputtextarea.innerHTML = ERRORLIST.join("\n");
+        outputtextarea.innerHTML = err;
     } finally {
-        console.log(parseJS(code));
+        const t1 = window.performance.now();
+        const time = t1 - t0;
 
-        buildTimeElem.innerText = `${(window.performance.now() - bTime).toFixed(3)}ms, ${buildOps} Operations`
-        setCode(code);
+        buildTimeElem.innerText = `${(time).toFixed(2)}ms, ${buildOps} Operations`
     }
 }
 
-FUNCTIONS.set("MATH", MathFunction)
-
 function mainFunc(js: string): string {
     ERRORLIST.length = 0;
-    resetOps();
-    VARIABLES.clear();
+    resetOps()
 
-    const parsedCode = parseJS(js).body
+    // @ts-ignore
+    const parsedCode = parse(js, { ecmaVersion: 13 }).body;
+    console.log(parsedCode)
     let finalResult = ""
 
-    for (const line of parsedCode) { // copy of BlockStatement
-        finalResult += Statement(line as estree.Statement);
+    for (const line of parsedCode) {
         console.log(">>>", line);
+        finalResult += interpretLine(line as estree.Statement);
         finalResult += "\n"
     }
 
     return finalResult
 }
 
-import { startEditor, view } from "./editor/editor";
-
 startEditor();
-runCode();
