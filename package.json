@@ -22,12 +22,8 @@
     "vite": "^4.0.0"
   },
   "dependencies": {
-    "@codemirror/basic-setup": "^0.17.1",
-    "@codemirror/commands": "^0.17.4",
-    "@codemirror/lang-javascript": "^0.17.2",
-    "@codemirror/state": "^0.17.2",
-    "@codemirror/view": "^0.17.10",
     "acorn": "^8.8.1",
-    "esprima": "^4.0.1"
+    "esprima": "^4.0.1",
+    "monaco-editor": "^0.34.1"
   }
 }

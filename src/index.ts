@@ -9,8 +9,7 @@ const outputtextarea = document.querySelector("#btext") as HTMLTextAreaElement;
 const buildTimeElem = document.querySelector("#buildtime") as HTMLSpanElement;
 console.log("Starting...")
 
-export function runCode(): void {
-    const code = view.state.doc.toJSON().join("\n");
+export function runCode(code: string): void {
     const bTime = window.performance.now();
     try {
         outputtextarea.style.color = "black";
