@@ -1,13 +1,51 @@
+html, body, .io, .monaco-editor {
+    height: 100% !important;
+}
+
 body {
     background-color: #a0c3d8;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin: 0px 15%;
+    margin: 0;
+    overflow: hidden;
 }
 
-#spin {
-    color: #0077ff;
+.header {
+    margin: 5px 10px;
+}
+
+.title {
+    font-size: 2em;
+    font-weight: bold;
+    margin: 0 0 0.5em 0;
+}
+
+.version {
+    font-style: italic;
+}
+
+.builtin {
+    font-size: 1.5em;
+    font-family: monospace;
+    float: right;
+}
+
+.builtin-name {
+    font-weight: bold;
+}
+
+.io {
+    display: flex;
+    /*height: calc(100% - 100px);*/
 }
 
 #ztext {
-    max-width: 100%;
+    width: 75%;
+}
+
+textarea#btext {
+    min-width: 25%;
+}
+
+#ztext, textarea#btext {
+    min-height: 100%;
 }
