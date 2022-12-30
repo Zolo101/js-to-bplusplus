@@ -1,10 +1,8 @@
 import "../style.css";
-import * as estree from "estree";
-import { parse } from "acorn";
 import { startEditor } from "./editor/editor";
-import { interpretLine } from "./core/interpreter";
 import { buildOps, resetOps } from "./core/expression";
 import { ERRORLIST } from "./core/global";
+import { parseCode } from "./core/parse";
 
 const outputtextarea = document.querySelector("#btext") as HTMLTextAreaElement;
 const buildTimeElem = document.querySelector("#buildtime") as HTMLSpanElement;
@@ -26,22 +24,11 @@ export function runCode(code: string): void {
     }
 }
 
-function mainFunc(js: string): string {
+export function mainFunc(js: string): string {
     ERRORLIST.length = 0;
     resetOps()
 
-    // @ts-ignore
-    const parsedCode = parse(js, { ecmaVersion: 13 }).body;
-    console.log(parsedCode)
-    let finalResult = ""
-
-    for (const line of parsedCode) {
-        console.log(">>>", line);
-        finalResult += interpretLine(line as estree.Statement);
-        finalResult += "\n"
-    }
-
-    return finalResult
+    return parseCode(js);
 }
 
 startEditor();
