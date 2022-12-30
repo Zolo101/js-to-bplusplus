@@ -1,4 +1,4 @@
-import * as monaco from "monaco-editor";
+import { editor } from "monaco-editor";
 import { runCode } from "..";
 import { getCode, setCode } from "../core/storage";
 const editorElem = document.querySelector("#ztext");
@@ -13,18 +13,18 @@ export function startEditor(): void {
     if (!editorElem) throw "Could not inject editor?";
 
     // TODO: Figure out how to tell monaco to stop logging errors
-    const editor = monaco.editor.create(<HTMLElement>editorElem, {
+    const monacoEditor = editor.create(<HTMLElement>editorElem, {
         value: fillerCode,
         language: "javascript",
         theme: "vs-dark",
         fontSize: 24,
     })
 
-    editor.onKeyUp(e => {
-        const val = editor.getValue();
+    monacoEditor.onKeyUp(e => {
+        const val = monacoEditor.getValue();
         runCode(val);
         setCode(val);
     })
 
-    runCode(editor.getValue());
+    runCode(monacoEditor.getValue());
 }

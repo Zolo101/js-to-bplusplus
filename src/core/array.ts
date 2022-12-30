@@ -9,8 +9,8 @@ export function getLength(array: estree.Expression): string {
 export function arrayMap(array: estree.ArrayExpression, callback: estree.ArrowFunctionExpression): string {
     console.log("!!!", callback)
     const param = Pattern(callback.params[0]); //"map.iterator";
-    let body: string = Expression(callback.body as estree.Expression);
-    body = body.replace(param, "map.iterator");
+    let body: string | undefined = Expression(callback.body as estree.Expression);
+    body = body?.replace(param, "map.iterator");
     return `[MAP ${body} ${Expression(array)}]`;
 }
 

@@ -8,7 +8,7 @@ export const resetOps = () => buildOps = 0;
 type Result = string | number | bigint | boolean | RegExp | null | undefined;
 type ResultWithVoid = string | number | bigint | boolean | void | RegExp | null | undefined;
 export type CallExpressionArguments = (estree.Expression | estree.SpreadElement)[]
-export function Expression(expression: estree.Expression | estree.SpreadElement | undefined | null) {
+export function Expression(expression: estree.Expression | estree.SpreadElement | undefined | null): string | undefined {
     buildOps += 1;
     switch (expression?.type) {
         case "Literal":
@@ -64,7 +64,7 @@ export function Expression(expression: estree.Expression | estree.SpreadElement 
         case "NewExpression":
 
         case "UpdateExpression":
-            return UpdateExpression(expression);
+            return UpdateExpression(expression as estree.UpdateExpression);
 
         case "YieldExpression":
 
@@ -103,11 +103,11 @@ export function Identifier(expression: estree.Identifier) {
     return `[VAR ${expression.name}]`
 }
 
-export function ConditionalExpression(expression: estree.ConditionalExpression) {
+export function ConditionalExpression(expression: estree.ConditionalExpression): string {
     return `[IF ${Expression(expression.test)} ${Expression(expression.consequent)} ${Expression(expression.alternate)}]`;
 }
 
-export function BinaryExpression(expression: estree.BinaryExpression): string {
+export function BinaryExpression(expression: estree.BinaryExpression): string | undefined {
     const [left, operator, right] = [Expression(expression.left), expression.operator, Expression(expression.right)];
     switch (expression.operator) {
         case "===":
@@ -145,11 +145,10 @@ export function BinaryExpression(expression: estree.BinaryExpression): string {
         case "|":
         case "^":
         case "&":
-            break;
-
         case "in":
         case "instanceof":
-            break;
+        default:
+            throw `Unknown BinaryExpression ${expression.operator}`;
 
     }
 }
@@ -181,7 +180,7 @@ export function CallExpression(expression: estree.SimpleCallExpression): string 
     }
 }
 
-export function AssignmentExpression(expression: estree.AssignmentExpression) {
+export function AssignmentExpression(expression: estree.AssignmentExpression): string {
     let left = Pattern(expression.left);
     let right = Expression(expression.right);
     switch (expression.operator) {
@@ -206,7 +205,7 @@ export function AssignmentExpression(expression: estree.AssignmentExpression) {
         case "|=":
         case "^=":
         case "&=":
-            break;
+            throw `Unknown AssignmentExpression ${expression.operator}`;
 
     }
 }
@@ -223,7 +222,7 @@ export function idkExpression(expression: estree.ChainExpression | estree.UnaryE
 
 // this can only be used for properties, not methods
 function PropertyCallExpression(expression: estree.MemberExpression) {
-    const propertyName: string = expression.property.type === "Identifier" ? PatternIdentifier(expression.property) : Expression(expression.property as estree.Expression);
+    const propertyName: string | undefined = expression.property.type === "Identifier" ? PatternIdentifier(expression.property) : Expression(expression.property as estree.Expression);
     const objectType = expression.object.type
     // console.log(propertyName, objectType)
         console.log(":", expression.type, objectType, propertyName, expression.computed)
@@ -254,6 +253,7 @@ function CallMemberExpression(expression: estree.MemberExpression, args: CallExp
     switch (expression.object.type) {
         case "Identifier":
         case "ArrayExpression":
+            // @ts-ignore
             return CallMemberArrayExpression(expression, expression.object, args);
 
         default:

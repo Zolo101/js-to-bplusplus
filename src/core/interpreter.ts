@@ -4,7 +4,7 @@ import { Pattern, PatternIdentifier } from "./pattern";
 import { ERRORLIST } from "./global";
 
 export function interpretLine(line: estree.Statement) {
-    let output = "";
+    let output: string | undefined = "";
 
     // find correct statement type
     switch (line.type) {
