@@ -43,6 +43,7 @@ export function interpretLine(line: estree.Statement) {
         case "TryStatement":
             break;
         case "WhileStatement":
+            output = WhileStatement(line);
             break;
         case "DoWhileStatement":
             break;
@@ -93,6 +94,10 @@ function IfStatement(statement: estree.IfStatement) {
     // TODO: Use ===?
     let alt = statement.alternate == undefined ? "" : ` ${interpretLine(statement.alternate)}`
     return `[IF ${Expression(statement.test)} ${interpretLine(statement.consequent)}${alt}]`;
+}
+
+function WhileStatement(statement: estree.WhileStatement) {
+    return `[WHILE ${Expression(statement.test)} ${interpretLine(statement.body)}]`;
 }
 
 function ForStatement(statement: estree.ForStatement) {

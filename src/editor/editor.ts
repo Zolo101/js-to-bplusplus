@@ -17,6 +17,7 @@ export function startEditor(): void {
         value: fillerCode,
         language: "javascript",
         theme: "vs-dark",
+        fontSize: 24,
     })
 
     editor.onKeyUp(e => {
